@@ -1,6 +1,5 @@
 
 # "pip install yfinance"
-# "pip install tkinter"
 # "pip install matplotlib"
 
 import yfinance as yf
@@ -24,13 +23,14 @@ def fetch_stock_data():
             tree.delete(i)
 
         data = [
-            ("Nome", stock_info.get("shortName", "N/A")),
-            ("Simbolo", stock_info.get("symbol", "N/A")),
+            ("Nome", stock_info.get("longName", "N/A")),
             ("Setor", stock_info.get("sector", "N/A")),
             ("Indústria", stock_info.get("industry", "N/A")),
             ("Capitalização de Mercado", stock_info.get("marketCap", "N/A")),
-            ("Volume Médio", stock_info.get("averageVolume", "N/A")),
-            ("Dividend Yield", stock_info.get("dividendYield", "N/A")),
+            ("ROE", stock_info.get("returnOnEquity", "N/A")),
+            ("Dividend Yield", stock_info.get("dividendYield", "N/A")), # COLOCAR PERCENTUAL
+            ("Crescimento dos Lucros", stock_info.get("earningsGrowth", "N/A")),
+            ("PM Últimos 200 dias", stock_info.get("twoHundredDayAverage", "N/A"))
         ]
 
         for key, value in data:
@@ -44,7 +44,7 @@ def fetch_stock_data():
 
 def plot_stock_data(stock_code):
     try:
-        stock_data = yf.download(stock_code, start="2017-01-01", end="2024-12-02", progress=False)
+        stock_data = yf.download(stock_code, start="2018-01-01", end="2025-01-06", progress=False)
         if stock_data.empty:
             messagebox.showerror("Erro", "Não há dados históricos disponíveis para esta ação.")
             return
